@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Building2, User, Phone, Mail, MapPin, Calendar, Users, AlertCircle, Check, ChevronRight } from 'lucide-react'
+import { User, MapPin, Users, AlertCircle, Check, ChevronRight } from 'lucide-react'
 import { Site } from '@/types/site'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
