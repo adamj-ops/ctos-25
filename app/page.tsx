@@ -8,9 +8,9 @@ export default async function Home() {
   // Check if user is authenticated
   const { data: { user } } = await supabase.auth.getUser()
   
-  // If authenticated, redirect to app
+  // If authenticated, redirect to documents page
   if (user) {
-    redirect('/app')
+    redirect('/documents')
   }
   
   // Otherwise show landing page
