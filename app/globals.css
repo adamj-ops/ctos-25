@@ -1,26 +1,306 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+   RENDER DESIGN SYSTEM
+   ============================================ */
+
+/* Typography - Import Inter and Roboto Mono */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap');
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Color Tokens */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-foreground: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  
+  /* Primary Colors */
+  --color-primary: var(--primary-600);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-foreground: #FFFFFF;
+  
+  /* Accent Colors */
+  --color-accent: var(--accent-600);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-foreground: #FFFFFF;
+  
+  /* Semantic Colors */
+  --color-success: var(--success-500);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+  --color-warning: var(--warning-500);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+  --color-danger: var(--danger-500);
+  --color-danger-500: var(--danger-500);
+  --color-danger-600: var(--danger-600);
+  --color-info: var(--info-500);
+  --color-info-500: var(--info-500);
+  --color-info-600: var(--info-600);
+  
+  /* Legacy shadcn compatibility */
+  --color-background: var(--bg);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--fg);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--fg);
+  --color-secondary: var(--muted);
+  --color-secondary-foreground: var(--fg);
+  --color-muted-foreground: var(--fg-muted);
+  --color-destructive: var(--danger-500);
+  --color-input: var(--border);
+  --color-ring: var(--primary-500);
+  
+  /* Charts */
+  --color-chart-1: var(--primary-500);
+  --color-chart-2: var(--accent-500);
+  --color-chart-3: var(--success-500);
+  --color-chart-4: var(--warning-500);
+  --color-chart-5: var(--info-500);
+  
+  /* Sidebar */
+  --color-sidebar: var(--surface);
+  --color-sidebar-foreground: var(--fg);
+  --color-sidebar-primary: var(--primary-600);
+  --color-sidebar-primary-foreground: #FFFFFF;
+  --color-sidebar-accent: var(--muted);
+  --color-sidebar-accent-foreground: var(--fg);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--primary-500);
+  
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  
+  /* Radius */
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* ============================================
+     BASE COLORS - Render Design System
+     ============================================ */
+  
+  /* Backgrounds */
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --border: #E6E8EF;
+  --muted: #F3F5F9;
+  
+  /* Text */
+  --fg: #0F172A;
+  --fg-muted: #475569;
+  --fg-subtle: #64748B;
+  
+  /* Brand / Primary (Indigo) */
+  --primary-500: #6366F1;
+  --primary-600: #5458EA;
+  --primary-700: #3F46D6;
+  
+  /* Accent (Violet) */
+  --accent-500: #8B5CF6;
+  --accent-600: #7C3AED;
+  
+  /* Semantic Colors */
+  --success-500: #10B981;
+  --success-600: #059669;
+  --warning-500: #F59E0B;
+  --warning-600: #D97706;
+  --danger-500: #EF4444;
+  --danger-600: #DC2626;
+  --info-500: #0EA5E9;
+  --info-600: #0284C7;
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(2, 6, 23, 0.04);
+  --shadow-sm: 0 2px 8px rgba(2, 6, 23, 0.06);
+  --shadow-md: 0 6px 20px rgba(2, 6, 23, 0.08);
+  --shadow-lg: 0 12px 32px rgba(2, 6, 23, 0.12);
+  
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-600) 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(99, 102, 241, 0.06) 0%, rgba(99, 102, 241, 0) 100%);
+}
+
+.dark {
+  /* Dark mode adjustments */
+  --bg: #0F172A;
+  --surface: #1E293B;
+  --border: #334155;
+  --muted: #1E293B;
+  
+  --fg: #F1F5F9;
+  --fg-muted: #94A3B8;
+  --fg-subtle: #64748B;
+  
+  /* Adjust shadows for dark mode */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* ============================================
+     TYPOGRAPHY SCALE - Render Design System
+     ============================================ */
+  
+  .display-xl {
+    font-size: 3.75rem; /* 60px */
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  
+  .display-lg {
+    font-size: 3rem; /* 48px */
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  
+  h1, .h1 {
+    font-size: 2.25rem; /* 36px */
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  
+  h2, .h2 {
+    font-size: 1.875rem; /* 30px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  h3, .h3 {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+  }
+  
+  h4, .h4 {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+  
+  .body-lg {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: 0;
+  }
+  
+  .body, p {
+    font-size: 1rem; /* 16px */
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+  
+  .body-sm {
+    font-size: 0.875rem; /* 14px */
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: 0;
+  }
+  
+  .caption {
+    font-size: 0.75rem; /* 12px */
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+  
+  .mono-sm, code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem; /* 13px */
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* ============================================
+     UTILITY CLASSES - Render Design System
+     ============================================ */
+  
+  /* Brand Gradient */
+  .gradient-brand {
+    background: var(--gradient-brand);
+  }
+  
+  .gradient-soft {
+    background: var(--gradient-soft);
+  }
+  
+  /* Shadows */
+  .shadow-xs {
+    box-shadow: var(--shadow-xs);
+  }
+  
+  .shadow-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .shadow-md {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .shadow-lg {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Smooth Transitions */
+  .transition-smooth {
+    transition: all 150ms ease-out;
+  }
+  
+  .transition-smooth-slow {
+    transition: all 200ms ease-out;
+  }
+  
+  /* Focus Ring */
+  .focus-ring {
+    @apply focus:ring-2 focus:ring-primary/40 focus:outline-none;
+  }
+  
+  /* Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

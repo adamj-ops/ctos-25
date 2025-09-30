@@ -1,0 +1,44 @@
+---
+description: "Advanced Shadcn MCP integration rules"
+globs: "*.tsx,*.ts"
+alwaysApply: false
+---
+
+# MCP-Powered Shadcn Development
+
+## MCP Workflow
+1. Always query available components using list_components before starting
+2. Use get_component_details for implementation guidance
+3. Reference get_component_examples for proper usage patterns
+4. Install components using install_component tool when needed
+
+## Component Implementation Strategy
+- Start with a plan that identifies required shadcn components
+- Fetch component source and examples via MCP
+- Implement following exact TypeScript interfaces
+- Test component integration thoroughly
+
+## Quality Assurance
+- Verify all props match component TypeScript definitions
+- Ensure proper import statements
+- Follow component composition patterns
+- Implement proper error handling
+
+## Auto-Setup Rules
+When implementing new UI features:
+1. Query list_components for relevant options
+2. Use install_component to add needed components
+3. Reference get_component_metadata for dependencies
+4. Implement following official examples
+
+## Design Consistency
+- Always use shadcn's spacing scale (space-x-4, gap-6, etc.)
+- Follow shadcn's typography hierarchy
+- Use semantic color tokens (primary, secondary, muted)
+- Implement proper dark mode support using CSS variables
+
+## Performance Guidelines
+- Use React.memo for expensive shadcn components
+- Implement proper lazy loading for complex blocks
+- Optimize bundle size by importing only needed components
+- Use shadcn's built-in responsive patterns
