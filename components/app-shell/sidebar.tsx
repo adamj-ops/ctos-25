@@ -1,6 +1,6 @@
 'use client'
 
-import { Home, FileText, Building2, MessageSquare, Settings } from 'lucide-react'
+import { Home, FileText, Building2, MessageSquare, Settings, BarChart3, AlertTriangle, BookOpen } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -12,11 +12,13 @@ interface NavItem {
   icon: typeof Home
   badge?: number
   adminOnly?: boolean
+  coordinatorOnly?: boolean
+  sponsorOnly?: boolean
 }
 
 const navItems: NavItem[] = [
   {
-    title: 'Home',
+    title: 'Dashboard',
     href: '/app',
     icon: Home,
   },
@@ -27,15 +29,33 @@ const navItems: NavItem[] = [
     badge: 12, // Dynamic: missing documents count
   },
   {
+    title: 'Missing Docs',
+    href: '/app/documents/missing',
+    icon: AlertTriangle,
+    badge: 5,
+  },
+  {
     title: 'Sites',
     href: '/app/sites',
     icon: Building2,
     badge: 3, // Dynamic: open actions count
+    sponsorOnly: true,
+  },
+  {
+    title: 'Reports',
+    href: '/app/reports',
+    icon: BarChart3,
+    sponsorOnly: true,
   },
   {
     title: 'Community',
     href: '/app/community',
     icon: MessageSquare,
+  },
+  {
+    title: 'Knowledge Base',
+    href: '/app/knowledge-base',
+    icon: BookOpen,
   },
   {
     title: 'Admin',
@@ -52,9 +72,12 @@ interface SidebarProps {
 export function Sidebar({ userRole }: SidebarProps) {
   const pathname = usePathname()
 
-  const filteredNavItems = navItems.filter(
-    item => !item.adminOnly || userRole === 'admin'
-  )
+  const filteredNavItems = navItems.filter(item => {
+    if (item.adminOnly && userRole !== 'admin') return false
+    if (item.sponsorOnly && userRole === 'site_coordinator') return false
+    if (item.coordinatorOnly && userRole !== 'site_coordinator') return false
+    return true
+  })
 
   return (
     <aside className="fixed left-0 top-16 bottom-0 w-70 border-r border-border bg-surface z-30">
